@@ -5,11 +5,21 @@ export default function Index({ recipes }) {
   console.log(recipes);
 
   return (
-    <div className="recipeList">
-      {recipes.map((recipe) => (
-        <RecipeCard key={recipe.sys.id} recipe={recipe} />
-      ))}
-    </div>
+    <>
+      <div className="recipeList">
+        {recipes.map((recipe) => (
+          <RecipeCard key={recipe.sys.id} recipe={recipe} />
+        ))}
+      </div>
+
+      <style jsx>{`
+        .recipeList {
+          display: grid;
+          grid-gap: 20px 60px;
+          grid-template-columns: 1fr 1fr;
+        }
+      `}</style>
+    </>
   );
 }
 
