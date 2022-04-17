@@ -14,26 +14,55 @@ export default function Recipe({ recipe }) {
     recipe.fields;
 
   return (
-    <div>
-      <div className="banner">
-        <Image
-          height={featuredImage.fields.file.details.image.height}
-          src={`https:${featuredImage.fields.file.url}`}
-          width={featuredImage.fields.file.details.image.width}
-        />
-        <div>{title}</div>
+    <>
+      <div>
+        <div className="banner">
+          <Image
+            height={featuredImage.fields.file.details.image.height}
+            src={`https:${featuredImage.fields.file.url}`}
+            width={featuredImage.fields.file.details.image.width}
+          />
+          <h2>{title}</h2>
+        </div>
+        <div className="info">
+          <p>Takes about {cookingTime} mins to cook.</p>
+          <h3>Ingredients:</h3>
+          <ul>
+            {ingredients.map((ingredient) => (
+              <li key={ingredient}>{ingredient}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="method">
+          <h3>Method:</h3>
+          <div>{documentToReactComponents(method)}</div>
+        </div>
       </div>
-      <div className="info">
-        <p>Takes about {cookingTime} mins to cook.</p>
-        <h3>Ingredients</h3>
-        <ul>
-          {ingredients.map((ingredient) => (
-            <li key={ingredient}>{ingredient}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="method">{documentToReactComponents(method)}</div>
-    </div>
+
+      <style jsx>{`
+        h2,
+        h3 {
+          text-transform: uppercase;
+        }
+
+        .banner {
+          display: grid;
+          place-content: center;
+        }
+
+        .banner h2 {
+          background: #fff;
+          box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+          display: inline-block;
+          left: -10px;
+          margin: 0;
+          padding: 20px;
+          position: relative;
+          top: -60px;
+          transform: rotateZ(-1deg);
+        }
+      `}</style>
+    </>
   );
 }
 
