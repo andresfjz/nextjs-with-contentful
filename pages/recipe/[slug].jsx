@@ -1,4 +1,5 @@
 import { createClient } from "contentful";
+import Image from "next/image";
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -8,7 +9,30 @@ const client = createClient({
 export default function Recipe({ recipe }) {
   console.log(recipe);
 
-  return <div>Recipe Details</div>;
+  const { cookingTime, featuredImage, ingredients, method, title } =
+    recipe.fields;
+
+  return (
+    <div>
+      <div className="banner">
+        <Image
+          height={featuredImage.fields.file.details.image.height}
+          src={`https:${featuredImage.fields.file.url}`}
+          width={featuredImage.fields.file.details.image.width}
+        />
+        <div>{title}</div>
+      </div>
+      <div className="info">
+        <p>Takes about {cookingTime} mins to cook.</p>
+        <h3>Ingredients</h3>
+        <ul>
+          {ingredients.map((ingredient) => (
+            <li key={ingredient}>{ingredient}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 }
 
 export async function getStaticPaths() {
