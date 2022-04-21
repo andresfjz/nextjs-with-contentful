@@ -9,7 +9,7 @@ const client = createClient({
 });
 
 export default function Recipe({ recipe }) {
-  !recipe && <Skeleton />;
+  if (!recipe) return <Skeleton />;
 
   const { cookingTime, featuredImage, ingredients, method, title } =
     recipe.fields;
